@@ -5,11 +5,12 @@ const cors = require('cors');
 const app = express();
 
 const postRouter = require('./routes/post.route.js');
+const commentRouter = require('./routes/comment.route.js');
 
 app.use(cors());
 app.use(express.json());
 app.use(postRouter);
-
+app.use(commentRouter);
 
 app.get('/', (req, res) => {
     res.status(200).json({
@@ -26,5 +27,6 @@ function start(PORT) {
 }
 
 module.exports = {
-    start
+    start,
+    app
 };

@@ -13,7 +13,7 @@ router.delete('/post/:id', deletePost);
 
 
 async function getPostWithComments(req, res) {
-    const post = await Post.readWithComments({include: Comment});
+    const post = await Post.readWithComments( Comment);
     res.status(200).json({
         post
     });
@@ -27,10 +27,7 @@ async function createPost(req, res) {
 
 async function getOnePostWithComments(req, res) {
     const id = req.params.id;
-    const post = await Post.readOneWithComments({
-        where: {id: id},
-        include: Comment
-    });
+    const post = await Post.readOneWithComments(id,Comment);
     res.status(200).json(post);
 }
 

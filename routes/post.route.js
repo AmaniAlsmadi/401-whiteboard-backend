@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { Post , Comment } = require('../models/index.js');
+const { Post , CommentModel } = require('../models/index.js');
 
 router.get('/post', getPostWithComments);
 router.post('/post', createPost);
@@ -13,7 +13,7 @@ router.delete('/post/:id', deletePost);
 
 
 async function getPostWithComments(req, res) {
-    const post = await Post.readWithComments( Comment);
+    const post = await Post.readWithComments( CommentModel);
     res.status(200).json({
         post
     });
@@ -27,7 +27,7 @@ async function createPost(req, res) {
 
 async function getOnePostWithComments(req, res) {
     const id = req.params.id;
-    const post = await Post.readOneWithComments(id,Comment);
+    const post = await Post.readOneWithComments(id,CommentModel);
     res.status(200).json(post);
 }
 

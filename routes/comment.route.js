@@ -28,9 +28,7 @@ async function createComment(req, res) {
 async function updateComment(req, res) {
     const id = req.params.id;
     const obj = req.body;
-    const comment = await Comment.read({
-        where: {id: id}
-    });
+    const comment = await Comment.read(id);
     const updatedComment = await Comment.update(obj);
     res.status(201).json(updatedComment);
 }

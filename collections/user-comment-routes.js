@@ -1,6 +1,6 @@
 'use strict';
 
-class postCommentRoutes {
+class PostCommentRoutes {
     constructor(model) {
         this.model = model;
     }
@@ -27,7 +27,7 @@ class postCommentRoutes {
 
     async update(id, obj) {
         try {
-            const dataById = await this.model.update(obj, { where: {id}});
+            const dataById = await this.model.findOne({ where: {id}});
             return await dataById.update(obj);
         } catch (e) {
             console.error(`ERROR WHILE UPDATING DATA WITH ID ${id}`);
@@ -59,4 +59,4 @@ class postCommentRoutes {
     }
 
 }
-module.exports = postCommentRoutes;
+module.exports = PostCommentRoutes;

@@ -7,7 +7,7 @@ const collection = require('../collections/user-comment-routes.js');
 
 const DATABASE_URL = process.env.DATABASE_URL || process.env.HEROKU_POSTGRESQL_BROWN_URL ;
 
-/*const sequelizeOptions = {
+const sequelizeOptions = {
     dialectOptions: {
         ssl: {
             require: true,
@@ -15,8 +15,8 @@ const DATABASE_URL = process.env.DATABASE_URL || process.env.HEROKU_POSTGRESQL_B
         }
     }
 };
-*/
-let sequelize = new Sequelize(DATABASE_URL);
+
+let sequelize = new Sequelize(DATABASE_URL, sequelizeOptions);
 const postModel = post(sequelize, DataTypes);
 const commentModel = comment(sequelize,DataTypes);
 

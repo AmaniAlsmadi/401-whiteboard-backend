@@ -19,11 +19,16 @@ async function getComment(req, res) {
 }
 
 async function createComment(req, res) {
-    const id = req.params.id;
-    const newComment = req.body.comments;
-    const obj = {'userId': id, 'content': newComment.content};
-    const comment =await Comment.create(obj);
-    res.status(200).json(comment);
+    const postId = req.params.id;
+    const content = req.body.content;
+    const obj = {'userId': postId ,'content': content};
+    await Comment.create( obj )
+        .then( async () => {
+            await Comment.read()
+                .then( ( comments ) => {
+                    res.status( 200 ).json( comments );
+                } );
+        } );
 }
 
 

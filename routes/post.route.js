@@ -35,19 +35,15 @@ async function getOnePostWithComments(req, res) {
 async function updatePost(req, res) {
     const id = req.params.id;
     const obj = req.body;
-    const post = await Post.read({
-        where: {id: id}
-    });
-    const updatedPost = await post.update(obj);
-    res.status(201).json(updatedPost);
+    const post = await Post.update( id, obj );
+    res.status( 201 ).json( post );
 }
 
 async function deletePost(req, res) {
     let id = req.params.id;
-    let deletePost = await Post.destroy({
-        where: {id: id}
-    });
-    res.status(204).json({Message: 'Post deleted'});
+    await Post.delete( id ).then( () => {
+        res.status( 204 ).send( '' );
+    } );
 }
 
 

@@ -19,8 +19,10 @@ async function getComment(req, res) {
 }
 
 async function createComment(req, res) {
-    const newComment = req.body;
-    const comment =await Comment.create(newComment);
+    const id = req.params.id;
+    const newComment = req.body.comments;
+    const obj = {'userId': id, 'content': newComment.content};
+    const comment =await Comment.create(obj);
     res.status(200).json(comment);
 }
 
@@ -28,17 +30,15 @@ async function createComment(req, res) {
 async function updateComment(req, res) {
     const id = req.params.id;
     const obj = req.body;
-    const comment = await Comment.read(id);
-    const updatedComment = await Comment.update(obj);
-    res.status(201).json(updatedComment);
+    const comment = await Comment.update( id, obj );
+    res.status( 201 ).json( comment );
 }
 
 async function deleteComment(req, res) {
     let id = req.params.id;
-    let deleteComment = await Comment.destroy({
-        where: {id: id}
-    });
-    res.status(204).json({  Message: 'Comment deleted' });
+    await Comment.delete( id ).then( () => {
+        res.status( 204 ).send( '' );
+    } );
 }
 
 

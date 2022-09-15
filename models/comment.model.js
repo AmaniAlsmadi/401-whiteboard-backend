@@ -3,7 +3,7 @@
 const comment = (sequelize, DataTypes) => sequelize.define('comment', {
     userId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
     },
     content: {
         type: DataTypes.STRING,

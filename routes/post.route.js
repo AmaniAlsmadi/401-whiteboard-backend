@@ -34,7 +34,7 @@ async function getOnePostWithComments(req, res) {
 
 async function updatePost(req, res) {
     const id = req.params.id;
-    const obj = req.body;
+    const obj = req.body.content;
     const post = await Post.update( id, obj );
     res.status( 201 ).json( post );
 }

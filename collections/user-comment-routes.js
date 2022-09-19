@@ -50,9 +50,9 @@ class PostCommentRoutes {
         }
     }
 
-    async readOneWithComments ( id,Comment ) {
+    async readOneWithComments ( id,comment ) {
         try {
-            return await this.model.findOne( {where: { id } ,include: [ Comment ] } );
+            return await this.model.findOne( {where: { id } ,include: [ comment ] } );
         } catch ( e ) {
             console.error( `ERROR WHILE READING COMMENTS FOR MODEL ID ${id}` );
         }

@@ -3,7 +3,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-
+const router = require('./routes/user.route');
 const postRouter = require('./routes/post.route.js');
 const commentRouter = require('./routes/comment.route.js');
 
@@ -11,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use(postRouter);
 app.use(commentRouter);
+app.use(router);
 
 app.get('/', (req, res) => {
     res.status(200).json({

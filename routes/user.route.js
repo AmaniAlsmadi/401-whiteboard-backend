@@ -2,11 +2,11 @@
 
 const { signup, allUser, login } = require('../controllers/userControllers');
 const userAuth = require('../middleware/userAuth');
-
 const router = require('express').Router();
+const bearerAuth = require('../middleware/bearer-auth');
 
 router.post('/login', login);
 router.post('/signup', userAuth.saveUser, signup)
-router.get('/users', allUser)
+router.get('/users', bearerAuth, allUser)
 
 module.exports = router;

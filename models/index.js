@@ -7,16 +7,16 @@ const collection = require('../collections/user-comment-routes.js');
 const   User = require('../user.model.js');
 const DATABASE_URL = process.env.DATABASE_URL || process.env.HEROKU_POSTGRESQL_BROWN_URL ;
 
-/*const sequelizeOptions = {
+const sequelizeOptions = {
     dialectOptions: {
         ssl: {
             require: true,
             rejectUnauthorized: false
         }
     }
-};*/
+};
 
-let sequelize = new Sequelize(DATABASE_URL);
+let sequelize = new Sequelize(DATABASE_URL, sequelizeOptions);
 
 sequelize.authenticate().then(() => {
     console.log('Database connected to postgres successfully.');

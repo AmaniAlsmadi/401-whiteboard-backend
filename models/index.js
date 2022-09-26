@@ -7,16 +7,16 @@ const collection = require('../collections/user-comment-routes.js');
 const   User = require('../user.model.js');
 const DATABASE_URL = process.env.DATABASE_URL || process.env.HEROKU_POSTGRESQL_BROWN_URL ;
 
-const sequelizeOptions = {
+/*const sequelizeOptions = {
     dialectOptions: {
         ssl: {
             require: true,
             rejectUnauthorized: false
         }
     }
-};
+};*/
 
-let sequelize = new Sequelize(DATABASE_URL, sequelizeOptions);
+let sequelize = new Sequelize(DATABASE_URL);
 
 sequelize.authenticate().then(() => {
     console.log('Database connected to postgres successfully.');
@@ -30,6 +30,12 @@ const userModel =User(sequelize, DataTypes);
 
 postModel.hasMany(commentModel, {foreignKey: 'userId', sourceKey: 'id'}) 
 commentModel.belongsTo(postModel, {foreignKey: 'userId', targetKey: 'id'})
+
+userModel.hasMany(postModel, {foreignKey: 'ownerId', sourceKey: 'id'})
+postModel.belongsTo(userModel, {foreignKey: 'ownerId', sourceKey: 'id'}) 
+
+userModel.hasMany(commentModel, {foreignKey: 'ownerId', sourceKey: 'id'}) 
+commentModel.belongsTo(userModel, {foreignKey: 'ownerId', targetKey: 'id'})
 
 const postCollection = new collection(postModel);
 const commentCollection =new collection(commentModel);

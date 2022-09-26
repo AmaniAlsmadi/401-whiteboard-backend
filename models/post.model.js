@@ -9,6 +9,15 @@ const post = (sequelize, DataTypes) => sequelize.define('post', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    ownerId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    username: {
+        type: DataTypes.STRING,
+        defaultValue: "userName"  
+    }
+
 });
 
 module.exports = post;

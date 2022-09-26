@@ -2,14 +2,14 @@
 
 const express = require('express');
 const router = express.Router();
-
+const bearerAuth = require('../middleware/bearer-auth');
 const { Post , CommentModel } = require('../models/index.js');
 
 router.get('/post', getPostWithComments);
 router.post('/post', createPost);
 router.get('/post/:id', getOnePostWithComments);
-router.put('/post/:id', updatePost);
-router.delete('/post/:id', deletePost);
+router.put('/post/:id',bearerAuth, updatePost);
+router.delete('/post/:id',bearerAuth , deletePost);
 
 
 async function getPostWithComments(req, res) {
@@ -34,15 +34,21 @@ async function getOnePostWithComments(req, res) {
 
 async function updatePost(req, res) {
     const id = req.params.id;
-    const obj = req.body.content;
+    const obj = req.body;
+    if(!req.user.capabilities.includes('update')) {
+        return res.status(401).json({message: 'you are not admin!!!!!!!'})
+      }
     const post = await Post.update( id, obj );
     res.status( 201 ).json( post );
 }
 
 async function deletePost(req, res) {
-    let id = req.params.id;
+    const id = req.params.id;
+    if(!req.user.capabilities.includes('delete')) {
+        return res.status(401).json({message: 'you are not admin!!!!!!!'})
+      }
     await Post.delete( id ).then( () => {
-        res.status( 204 ).send( '' );
+        res.status( 200 ).send( {message: 'post has been deleted'} );
     } );
 }
 

@@ -9,6 +9,15 @@ const comment = (sequelize, DataTypes) => sequelize.define('comment', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    ownerId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    ownername: {
+        type: DataTypes.STRING,
+        defaultValue: "ownerName"  
+
+    }
 });
 
 module.exports = comment;

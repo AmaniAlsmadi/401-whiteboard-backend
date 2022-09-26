@@ -27,7 +27,7 @@ class PostCommentRoutes {
 
     async update(id, obj) {
         try {
-            const dataById = await this.model.findOne({ where: {id}});
+            const dataById = await this.model.findOne({ where: {id:id}});
             return await dataById.update(obj);
         } catch (e) {
             console.error(`ERROR WHILE UPDATING DATA WITH ID ${id}`);

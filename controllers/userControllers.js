@@ -6,11 +6,12 @@ const User = require('../models').UserModel;
 
 const signup = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body;
     const data = {
       username,
       email,
-      password: await bcrypt.hash(password, 10)
+      password: await bcrypt.hash(password, 10),
+       role,
     };
 
     const user = await User.create(data);
@@ -48,6 +49,7 @@ const login = async (req, res) => {
 }
 
 const allUser = async (req, res) => {
+  console.log(req.user.capabilities);
   const users = await User.findAll();
   res.json(users);
 }

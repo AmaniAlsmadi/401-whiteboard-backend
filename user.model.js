@@ -42,7 +42,7 @@ role: {
       const acl = {
         admin: ['read', 'create', 'delete', 'update'],
         user: ['read', 'create'],
-    
+        
       }
       return acl[this.role]
     }

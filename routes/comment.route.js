@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const { Comment } = require('../models/index.js');
 const bearerAuth = require('../middleware/bearer-auth');
-//const {checkUpdateComment, checkDeleteComment} = require('../middleware/acl.js');
+
 
 router.get('/comment', getComment);
 router.post('/comment/:id', createComment);

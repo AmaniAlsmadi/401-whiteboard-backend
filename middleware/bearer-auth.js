@@ -19,7 +19,6 @@ const userInfo = await UserModel.findOne({where: {username: validUser.username}}
 if(userInfo){
     req.user = userInfo;
     req.token = userInfo.token;
-    //req.body.ownerId = userInfo.ownerId;
     next();
 }else{
     next('you are not authorized');
